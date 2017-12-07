@@ -2,6 +2,61 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset='utf-8')
+    meta(content='IE=edge', http-equiv='X-UA-Compatible')
+    meta(content='width=device-width, initial-scale=1', name='viewport')
+    title= 'Novum Insights | ' + title
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
+    link(href='/css/font-awesome.min.css', rel='stylesheet')
+
+    link(href='/css/custom.css', rel='stylesheet')
+    link(href='/css/small-business-gcv.css', rel='stylesheet')
+
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans', rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Merriweather', rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Oswald', rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Alegreya+SC:400,700', rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700', rel='stylesheet' type='text/css')
+    link(href="/images/favicon.ico", rel="shortcut icon", type='image/x-icon')
+
+    <!--[if lt IE 9 ]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    //block termshdr
+
   body
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
+      a.navbar-brand(href='#') Novum
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarsExampleDefault.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='#')
+              | Home
+              span.sr-only (current)
+          li.nav-divider
+          li.nav-item
+            a.nav-link(href='/dashboard')
+              | Dashboard
+          //li.nav-item
+          //  a.nav-link.disabled(href='#') Disabled
+          //li.nav-item.dropdown
+          //  a#dropdown01.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Dropdown
+          //  .dropdown-menu(aria-labelledby='dropdown01')
+          //    a.dropdown-item(href='#') Action
+          //    a.dropdown-item(href='#') Another action
+          //    a.dropdown-item(href='#') Something else here
+        form.form-inline.my-2.my-lg-0
+          input.form-control.mr-sm-2(type='text' placeholder='Search' aria-label='Search')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+
     block content
+
+    script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(type='text/javascript', src='https://online.tableau.com/javascripts/api/tableau-2.0.0.js')
