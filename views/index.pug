@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container-fluid
+    .row
+      .col-md-4
+        h1 Novum Insights
+        p.medium
+          | Novum Insights does all kinds of stuff, providing things and items to people who are keen for stuff, things, and items.
+    hr
+    .row
+      .col-md-4
+      .col-md-4
+      .col-md-4
+  include footer.pug
+
+  div &nbsp;
+  div &nbsp;

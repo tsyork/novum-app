@@ -1,0 +1,97 @@
+extends layout
+
+block content
+    br
+    br
+    .row
+        .col-2
+            .card-link
+        .col-2
+            .btn-group(role='group' aria-label='my buttons')
+                button.btn.btn-default(type='button', onclick="switchView('Company Page')") Companies
+        .col-2
+            .btn-group(role='group' aria-label='my buttons')
+                button.btn.btn-default(type='button', onclick="switchView('Investment Page')") Investments
+        .col-2
+            .btn-group(role='group' aria-label='my buttons')
+                button.btn.btn-default(type='button', onclick="switchView('Investor Page')") Investors
+        .col-2
+            .btn-group(role='group' aria-label='my buttons')
+                button.btn.btn-default(type='button', onclick="switchView('Advanced')") Advanced
+        .col-2
+
+    .row
+        div.col-md-12
+            #viz
+
+        script(type='text/javascript').
+
+            var viz, workbook;
+            var landingPages = ["Page1","Page2"];
+            var pos = 0;
+            window.onload = function () {
+                console.log('#{ticket}');
+
+                var vizDiv = document.getElementById('viz');
+                //var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/CompanyPage?:embed=y:render=false&:toolbar=bottom";
+                var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/LandingPage?:embed=y:render=false&:toolbar=bottom";
+
+                var options = {
+                    hideToolbar: false,
+                    hideTabs: true
+                };
+
+                viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
+
+                viz.addEventListener('tabswitch', function (event) {
+                    var oldSheetName = event.getOldSheetName();
+                    var newSheetName = event.getNewSheetName();
+                    var isNewSheetLandingPage = landingPages.indexOf(newSheetName);
+                    var isOldSheetLandingPage = landingPages.indexOf(oldSheetName);
+                    //console.log(newSheetName);
+                    //console.log(landingPages.indexOf(newSheetName));
+                    var urlPrefix = "#/";
+                    var urlSheet = event.getNewSheetName();
+                    var urlString = urlPrefix.concat(urlSheet.replace(" ", "%20"));
+                    pos += 1;
+                    //console.log("about to run history.pushState; stateValue=" + pos);
+                    history.pushState({pos: pos, sheetName: newSheetName}, 'New Title', urlString);
+                    $(document).ready(function () {
+                        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+                    });
+                })
+
+            }
+
+            window.onpopstate = function (event) {
+                console.log("running onpopstate function");
+                console.log("location: " + document.location + ", state: " + event.state.pos + ", SheetName: " + event.state.sheetName);
+                if (pos !== null) {
+                    workbook.activateSheetAsync(event.state.sheetName);
+                } else {
+                    sheetName = "Landing_page";
+                    workbook.activateSheetAsync(event.state.sheetName);
+                }
+                if (event.originalEvent.state != null) {
+                    alert("location: " + document.location);
+                }
+                ;
+            };
+
+            var switchView = function (sheetName) {
+                try {
+                    console.log("running switchView function");
+                    workbook = viz.getWorkbook();
+                             //alert(workbook);
+                    workbook.activateSheetAsync(sheetName)
+                        .then(function (sheet) {
+                            worksheet = sheet;
+                            console.log("running then function");
+                        });
+                }
+                catch (err) {
+                    alert(sheetName);
+                    alert(err.message);
+                }
+            };
+
