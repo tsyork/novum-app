@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+//    "build-css": "stylus source/stylesheets/index.styl -o static/css",
+//    "watch-css": "stylus source/stylesheets/index.styl -o static/css -w",
+    "clean": "rm -rf static/css && mkdir -p static/css",
+//    "build": "npm run clean && npm run build-css",
+//    "watch": "npm run clean && npm run watch-css & nodemon server -e js,jade",
+    "build": "npm run clean && npm run build-css",
     "start": "node ./bin/www"
   },
   "dependencies": {
