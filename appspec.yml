@@ -4,15 +4,17 @@ os: linux
 files:
   - source: /
     destination: /usr/local/novum-app/
-  - source: scripts/helloworld.conf
-      destination: /etc/init/
 
 hooks:
-  BeforeInstall:
-    - location: scripts/stop.sh
-      timeout: 30
+  ApplicationStop:
+    - location: scripts/stopnode.sh
+      timeout: 300
+      runas: root
   ApplicationStart:
-    - location: scripts/start.sh
-      timeout: 30
+    - location: scripts/start_nodeserver.sh
+      timeout: 300
+      runas: root
   ValidateService:
-    - location: scripts/validate.sh
+    - location: scripts/MonitorService.sh
+      timeout: 3600
+      runas: root
