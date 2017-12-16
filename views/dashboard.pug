@@ -1,28 +1,61 @@
-extends layout
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(content='IE=edge', http-equiv='X-UA-Compatible')
+        title Novum Insights App
+        link(href='/css/bootstrap.min.css', rel='stylesheet')
+        link(href='/css/Navigation-Clean.css',rel='stylesheet')
+        link(href='/css/styles.css', rel='stylesheet')
+        link(href='/css/font-awesome.min.css', rel='stylesheet')
 
-block content
-    br
-    br
-    br
-    .row
-        .col-2
-            .card-link
-        .col-2
-            .btn-group(role='group' aria-label='my buttons')
-                button.btn.btn-default(type='button', onclick="switchView('Company Page')") Companies
-        .col-2
-            .btn-group(role='group' aria-label='my buttons')
-                button.btn.btn-default(type='button', onclick="switchView('Investment Page')") Investments
-        .col-2
-            .btn-group(role='group' aria-label='my buttons')
-                button.btn.btn-default(type='button', onclick="switchView('Investor Page')") Investors
-        .col-2
-            .btn-group(role='group' aria-label='my buttons')
-                button.btn.btn-default(type='button', onclick="switchView('Advanced')") Advanced
-        .col-2
 
-    .row
-        div.col-md-12
+        link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet' type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans', rel='stylesheet' type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Merriweather', rel='stylesheet' type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Oswald', rel='stylesheet' type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Alegreya+SC:400,700', rel='stylesheet' type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700', rel='stylesheet' type='text/css')
+        link(href="/images/favicon.ico", rel="shortcut icon", type='image/x-icon')
+
+        <!--[if lt IE 9 ]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        //block termshdr
+
+    body
+        div
+            nav.navbar.navbar-light.navbar-expand-md.fixed-top.navigation-clean(style='padding:10px;background-color:rgb(37,58,123);')
+                .container
+                    a.navbar-brand(href='#', style='color:rgb(255,255,255);')
+                        img#logo(src='images/novum_logo.png', style='background-color:#ffffff;')
+                        |  Blockchain Technologies
+                    button.navbar-toggler(data-toggle='collapse', data-target='#navcol-1')
+                        span.sr-only Toggle navigation
+                        span.navbar-toggler-icon
+                    #navcol-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.ml-auto
+                        li.dropdown
+                            a.dropdown-toggle.nav-link.dropdown-toggle(data-toggle='dropdown', aria-expanded='false', href='#', style='color:rgb(255,255,255);') Welcome Tim!
+                            .dropdown-menu(role='menu')
+                                a.dropdown-item(role='presentation', href='#') Account Setup
+                                a.dropdown-item(role='presentation', href='#') Logout
+            #page-links-container.container
+        br
+        br
+        br
+        #page-links.row.align-items-center
+            .col.col-3
+            .col.col-2
+                a.page-link(onclick="switchView('Company Page')", style='color:rgb(37,58,123);') Companies
+            .col.col-2
+                a.page-link(onclick="switchView('Investment Page')", style='color:rgb(37,58,123);') Investments
+            .col.col-2
+                a.page-link(onclick="switchView('Investor Page')", style='color:rgb(37,58,123);') Investors
+
+        .container
             #viz
 
         script(type='text/javascript').
@@ -34,7 +67,7 @@ block content
                 console.log('#{ticket}');
 
                 var vizDiv = document.getElementById('viz');
-                //var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/CompanyPage?:embed=y:render=false&:toolbar=bottom";
+            //var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/CompanyPage?:embed=y:render=false&:toolbar=bottom";
                 var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/LandingPage?:embed=y:render=false&:toolbar=bottom";
 
                 var options = {
@@ -83,7 +116,7 @@ block content
                 try {
                     console.log("running switchView function");
                     workbook = viz.getWorkbook();
-                             //alert(workbook);
+                    //alert(workbook);
                     workbook.activateSheetAsync(sheetName)
                         .then(function (sheet) {
                             worksheet = sheet;
@@ -96,3 +129,8 @@ block content
                 }
             };
 
+
+    script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js')
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js')
+    script(type='text/javascript', src='https://online.tableau.com/javascripts/api/tableau-2.0.0.js')
