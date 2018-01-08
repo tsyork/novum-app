@@ -50,13 +50,16 @@ html
         br
         br
         #page-links.row.align-items-center
-            .col.col-3
+            .col.col-2
+            .col.col-2
+                a.page-link(href='/dashboard', style='color:rgb(37,58,123);') Dashboard
             .col.col-2
                 a.page-link(onclick="switchView('Company Page')", style='color:rgb(37,58,123);') Companies
             .col.col-2
                 a.page-link(onclick="switchView('Investment Page')", style='color:rgb(37,58,123);') Investments
             .col.col-2
                 a.page-link(onclick="switchView('Investor Page')", style='color:rgb(37,58,123);') Investors
+            .col.col-2
 
         form#tableau(name="tableau")
             //input(type="button", name="test", value="Filter", onclick="filterSingleValue();")
