@@ -19,6 +19,9 @@ html
         link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700', rel='stylesheet' type='text/css')
         link(href="/images/favicon.ico", rel="shortcut icon", type='image/x-icon')
 
+        script(type='text/javascript', src='http://public.tableau.com/javascripts/api/tableau-2.0.0.js')
+        script(type='text/javascript', src='/js/tableauviz.js')
+
         <!--[if lt IE 9 ]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -27,8 +30,8 @@ html
 
     body
         div
-            nav.navbar.navbar-light.navbar-expand-md.fixed-top.navigation-clean(style='padding:10px;background-color:rgb(37,58,123);')
-                .container
+            nav.navbar.navbar-light.navbar-expand.fixed-top.navigation-clean(style='padding:16px;background-color:rgb(37,58,123);')
+                .container-fluid
                     a.navbar-brand(href='#', style='color:rgb(255,255,255);')
                         img#logo(src='images/novum_logo.png', style='background-color:#ffffff;')
                         |  Blockchain
@@ -55,82 +58,21 @@ html
             .col.col-2
                 a.page-link(onclick="switchView('Investor Page')", style='color:rgb(37,58,123);') Investors
 
-        .container
-            #viz
+        form#tableau(name="tableau")
+            //input(type="button", name="test", value="Filter", onclick="filterSingleValue();")
+            .container-fluid
+                .row#vizMain
+                //.row#vizFilters
 
-        script(type='text/javascript').
-
-            var viz, workbook;
-            var landingPages = ["Page1","Page2"];
-            var pos = 0;
-            window.onload = function () {
-                console.log('#{ticket}');
-
-                var vizDiv = document.getElementById('viz');
-            //var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/CompanyPage?:embed=y:render=false&:toolbar=bottom";
-                var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/LandingPage?:embed=y:render=false&:toolbar=bottom";
-
-                var options = {
-                    hideToolbar: false,
-                    hideTabs: true
-                };
-
-                viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
-
-                viz.addEventListener('tabswitch', function (event) {
-                    var oldSheetName = event.getOldSheetName();
-                    var newSheetName = event.getNewSheetName();
-                    var isNewSheetLandingPage = landingPages.indexOf(newSheetName);
-                    var isOldSheetLandingPage = landingPages.indexOf(oldSheetName);
-                    //console.log(newSheetName);
-                    //console.log(landingPages.indexOf(newSheetName));
-                    var urlPrefix = "#/";
-                    var urlSheet = event.getNewSheetName();
-                    var urlString = urlPrefix.concat(urlSheet.replace(" ", "%20"));
-                    pos += 1;
-                    //console.log("about to run history.pushState; stateValue=" + pos);
-                    history.pushState({pos: pos, sheetName: newSheetName}, 'New Title', urlString);
-                    $(document).ready(function () {
-                        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
-                    });
-                })
-
-            }
-
-            window.onpopstate = function (event) {
-                console.log("running onpopstate function");
-                console.log("location: " + document.location + ", state: " + event.state.pos + ", SheetName: " + event.state.sheetName);
-                if (pos !== null) {
-                    workbook.activateSheetAsync(event.state.sheetName);
-                } else {
-                    sheetName = "Landing_page";
-                    workbook.activateSheetAsync(event.state.sheetName);
-                }
-                if (event.originalEvent.state != null) {
-                    alert("location: " + document.location);
-                }
-                ;
-            };
-
-            var switchView = function (sheetName) {
-                try {
-                    console.log("running switchView function");
-                    workbook = viz.getWorkbook();
-                    //alert(workbook);
-                    workbook.activateSheetAsync(sheetName)
-                        .then(function (sheet) {
-                            worksheet = sheet;
-                            console.log("running then function");
-                        });
-                }
-                catch (err) {
-                    alert(sheetName);
-                    alert(err.message);
-                }
-            };
-
+    script(type='text/javascript').
+        var viz, viz2, workbook;
+        var landingPages = ["Page1","Page2"];
+        var pos = 0;
+        var vizDiv = document.getElementById('vizMain');
+        var vizDivFilters = document.getElementById("vizFilters");
+        var vizURL = "http://viz.gcvanalytics.com/trusted/#{ticket}/t/NovumInsights/views/NovumMVP/LandingPage?:embed=y:render=false&:toolbar=bottom";
+        var vizURLFilters = "http://viz.gcvanalytics.com/t/NovumInsights/views/NovumMVP/Filters?:embed=y:render=false&:toolbar=bottom:refresh=yes";
 
     script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js')
     script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js')
-    script(type='text/javascript', src='https://online.tableau.com/javascripts/api/tableau-2.0.0.js')
