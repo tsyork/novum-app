@@ -8,7 +8,7 @@ var request = require('request');
 /* GET dashboard page. */
 router.get('/', function(req, res, locals) {
 
-  var tableauUser = 'jcarlson@qbixanalytics.com';
+  var tableauUser = 'novum@novuminsights.com';
   request.post({url:'http://70.35.194.136:9002/api/tickets', form:{email:tableauUser}}, function optionalCallback(err, httpResponse, body) {
       if (err) {
           return console.error('upload failed:', err);
