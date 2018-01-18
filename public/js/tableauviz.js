@@ -1,3 +1,5 @@
+var worksheets_to_listen_on = {'Co Score Details WS' : true};
+
 window.onload = function () {
     console.log('#{ticket}');
 
@@ -31,6 +33,7 @@ window.onload = function () {
     viz.addEventListener('tabswitch', function (event) {
         var oldSheetName = event.getOldSheetName();
         var newSheetName = event.getNewSheetName();
+
         var isNewSheetLandingPage = landingPages.indexOf(newSheetName);
         var isOldSheetLandingPage = landingPages.indexOf(oldSheetName);
         //console.log(newSheetName);
@@ -44,7 +47,9 @@ window.onload = function () {
         $(document).ready(function () {
             $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
         });
-    })
+    });
+
+    viz.addEventListener('marksSelection', getMarks);
 };
 
 window.onpopstate = function (event) {
@@ -61,10 +66,11 @@ window.onpopstate = function (event) {
     }
 };
 
-var switchView = function (sheetName) {
+var switchView = function (sheetName,parmValue) {
     try {
         console.log("running switchView function");
         workbook = viz.getWorkbook();
+        workbook.changeParameterValueAsync('Metric to display',parmValue);
         //alert(workbook);
         workbook.activateSheetAsync(sheetName)
             .then(function (sheet) {
@@ -116,4 +122,77 @@ function filterSingleValue(activeSheet) {
         "Company Region",
         "Americas",
         tableau.FilterUpdateType.REPLACE);
+}
+
+function getMarks(e){
+    console.log('Result of getMarks:');
+    console.log(e);
+    var ws = e.getWorksheet();
+    console.log('Worksheet obj:');
+    console.log(ws);
+    var ws_name = ws.getName();
+
+// Here you can route for specific worksheets based on the object defined at the beginning
+    if ( worksheets_to_listen_on[ws_name]) {
+        console.log('Marks selection being routed from ' + ws_name);
+        e.getMarksAsync().then( handleMarksSelection );
+    }
+}
+
+function handleMarksSelection(m) {
+
+    console.log("[Event] Marks selection, " + m.length + " marks");
+    console.log(m);
+
+// Cleared selection detection
+    if (m.length == 0) {
+//$("#running_action_history").fadeOut();
+// Reset to 'All' if no selection
+
+        viz.getWorkbook().changeParameterValueAsync('Logo URL Parameter', 'All').then(
+            function () {
+                console.log('Parameter set back to All');
+            }
+        );
+        return;
+    }
+
+// MarksSelection object is a collection of Marks class with numeric index
+// Marks contain Pairs, accessed by getPairs(), which is also collection
+// Easiest way to get the Values for a given field is to add the following method to the MarksSelection object
+// Pass the text value of the Field Name as fName and will return array of all of those values from the selected mark
+    m.getValuesForGivenField = function (fName) {
+        var valuesArray = new Array();
+
+// Run through each Mark in the Marks Collection
+        for(i=0;i<this.length;i++)
+        {
+            pairs = this[i].getPairs();
+            for (j = 0; j < pairs.length;
+            j++
+        )
+            {
+                if (pairs[j].fieldName == fName) {
+                    valuesArray.push(pairs[j].formattedValue);
+// Alternatively you could get the value not formattedValue
+// valuesArray.push( pairs[j].value );
+                }
+            }
+        }
+        return valuesArray;
+    }
+
+    values = m.getValuesForGivenField('Company Logo URL'); // Replace with the name of the field you want
+    console.log('Company Logo URL value:');
+    console.log(values);
+
+// Then do your thing with that array of Values
+    if (values.length === 1) {
+
+        viz.getWorkbook().changeParameterValueAsync('Logo URL Parameter', values[0]).then(
+            function () {
+                console.log('Parameter set');
+            }
+        );
+    }
 }
