@@ -46,3 +46,31 @@
   color: #fff;
   background-color: rgb(37,58,123);
 }
+
+.nav-pills .nav-link.active:hover,
+.nav-pills .show > .nav-link:hover {
+  color: lightgray;
+  background-color: rgb(37,58,123);
+}
+
+/* set the distance between pills*/
+/*.nav-pills li {*/
+  /*margin-left: 10px;*/
+  /*margin-right: 10px;*/
+/*}*/
+
+/* set the width of the pills */
+.nav-pills li a {
+  width: 200px;
+}
+
+.nav-pills li.nav-item {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+/* set curve of pill shape, 0=no curve */
+.nav-pills .nav-link {
+  border-radius: 0;
+}
