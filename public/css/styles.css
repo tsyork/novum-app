@@ -79,3 +79,11 @@
 .nav>li>a:focus, .nav>li>a:hover {
   background-color: lightgray;
 }
+
+.navbar-collapse {
+  text-align:center;
+}
+.navbar-nav {
+  display:inline-block;
+  float:none;
+}
