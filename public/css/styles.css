@@ -26,3 +26,23 @@
   background-color:transparent;
 }
 
+.nav-center {
+  text-align: center;
+}
+.nav-center ul.nav {
+  display: inline-block;
+}
+.nav-center ul.nav li {
+  display: inline-block;
+  display-model: l;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0.25rem;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: rgb(37,58,123);
+}
