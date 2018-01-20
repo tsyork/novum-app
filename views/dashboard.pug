@@ -33,17 +33,27 @@ html
                 .container-fluid
                     a.navbar-brand(href='#', style='color:rgb(255,255,255);')
                         img#logo(src='images/novum_logo.png', style='background-color:#ffffff;')
-                        |  Blockchain
-                    button.navbar-toggler(data-toggle='collapse', data-target='#navcol-1')
+                    button.navbar-toggler(data-toggle='collapse', data-target='#navcol-2')
                         span.sr-only Toggle navigation
                         span.navbar-toggler-icon
                     #navcol-1.collapse.navbar-collapse
                     ul.nav.navbar-nav.ml-auto
                         li.dropdown
-                            a.dropdown-toggle.nav-link.dropdown-toggle(data-toggle='dropdown', aria-expanded='false', href='#', style='color:rgb(255,255,255);') Welcome Tim!
+                            a.dropdown-toggle.nav-link.dropdown-toggle(data-toggle='dropdown', aria-expanded='false', href='#', style='color:rgb(255,255,255);font-weight: bold; font-size: 125%') Blockchain
                             .dropdown-menu(role='menu')
-                                a.dropdown-item(role='presentation', href='#') Account Setup
+                                a.dropdown-item(role='presentation', href='#') IoT
+                                a.dropdown-item(role='presentation', href='#') AI
+                    #navcol-2.collapse.navbar-collapse
+                    ul.nav.navbar-nav.ml-auto
+                        li.dropdown
+                            a.dropdown-toggle.nav-link.dropdown-toggle(data-toggle='dropdown', aria-expanded='false', href='#', style='color:rgb(255,255,255);') User Account
+                            span.glyphicon.glyphicon-user.pull-right
+                            .dropdown-menu(role='menu')
+                                a.dropdown-item(role='presentation', href='#') Setup
                                 a.dropdown-item(role='presentation', href='#') Logout
+
+
+
             #page-links-container.container
         br
         br
