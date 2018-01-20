@@ -1,4 +1,4 @@
-var worksheets_to_listen_on = {'Co Score Details WS' : true};
+var worksheets_to_listen_on = {'Co Score Details WS' : true, 'Sheet 2' : true};
 
 window.onload = function () {
     console.log('#{ticket}');

@@ -5,11 +5,10 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         meta(content='IE=edge', http-equiv='X-UA-Compatible')
         title Novum Insights App
-        link(href='/css/bootstrap.min.css', rel='stylesheet')
+        link(href='/css/bootstrap.css', rel='stylesheet')
         link(href='/css/Navigation-Clean.css',rel='stylesheet')
         link(href='/css/styles.css', rel='stylesheet')
         link(href='/css/font-awesome.min.css', rel='stylesheet')
-
 
         link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet' type='text/css')
         link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans', rel='stylesheet' type='text/css')
@@ -48,18 +47,21 @@ html
             #page-links-container.container
         br
         br
+        
+
         br
-        #page-links.row.align-items-center
-            .col.col-2
-            .col.col-2
-                a.page-link(href='/dashboard', style='color:rgb(37,58,123);') Dashboard
-            .col.col-2
-                a.page-link(onclick="switchView('Company Page','No of Companies')", style='color:rgb(37,58,123);') Companies
-            .col.col-2
-                a.page-link(onclick="switchView('Investment Page','No of Investments')", style='color:rgb(37,58,123);') Investments
-            .col.col-2
-                a.page-link(onclick="switchView('Investor Page','No of Investors')", style='color:rgb(37,58,123);') Investors
-            .col.col-2
+        .nav-center
+            ul.nav.nav-pills
+                li.nav-item
+                    a.nav-link.active(data-toggle='pill', onclick="switchView('Landing Page','No of Companies')") Dashboard
+                li.nav-item
+                    a.nav-link(data-toggle='pill', onclick="switchView('Company Page','No of Companies')") Companies
+                li.nav-item
+                    a.nav-link(data-toggle='pill', onclick="switchView('Investment Page','No of Investments')") Investments
+                li.nav-item
+                    a.nav-link(data-toggle='pill', onclick="switchView('Investor Page','No of Investors')") Investors
+
+
 
         form#tableau(name="tableau")
             //input(type="button", name="test", value="Filter", onclick="filterSingleValue();")
@@ -78,4 +80,4 @@ html
 
     script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js')
-    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js')
+    script(type='text/javascript', src='/js/bootstrap.min.js')
