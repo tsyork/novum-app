@@ -75,6 +75,7 @@
   border-radius: 0;
 }
 
+/* set appearance for inactive pills that are hovered over */
 .nav>li>a:focus, .nav>li>a:hover {
   background-color: lightgray;
 }
