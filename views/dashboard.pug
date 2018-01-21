@@ -42,7 +42,7 @@ html
                             a.dropdown-toggle.nav-link.dropdown-toggle(data-toggle='dropdown', aria-expanded='false', href='#', style='color:rgb(255,255,255);font-weight: bold; font-size: 125%') Blockchain
                             .dropdown-menu(role='menu')
                                 a.dropdown-item(role='presentation', href='#') IoT
-                                a.dropdown-item(role='presentation', href='#') AI
+                                a.dropdown-item(role='presentation', href='#') Cybersecurity
                     #navcol-2.collapse.navbar-collapse
                     ul.nav.navbar-nav.ml-auto
                         li.dropdown
@@ -52,9 +52,6 @@ html
                                 a.dropdown-item(role='presentation', href='#') Setup
                                 a.dropdown-item(role='presentation', href='#') Logout
 
-
-
-            #page-links-container.container
         br
         br
         
@@ -63,13 +60,15 @@ html
         .nav-center
             ul.nav.nav-pills
                 li.nav-item
-                    a.nav-link.active(data-toggle='pill', onclick="switchView('Landing Page','No of Companies')") Dashboard
+                    a.nav-link.active(data-toggle='pill', onclick="switchView('Landing Page','')") Dashboard
                 li.nav-item
                     a.nav-link(data-toggle='pill', onclick="switchView('Company Page','No of Companies')") Companies
                 li.nav-item
                     a.nav-link(data-toggle='pill', onclick="switchView('Investment Page','No of Investments')") Investments
                 li.nav-item
                     a.nav-link(data-toggle='pill', onclick="switchView('Investor Page','No of Investors')") Investors
+                li.nav-item
+                    a.nav-link(data-toggle='pill', onclick="switchView('Filters','')") Filters
 
 
 
@@ -77,7 +76,7 @@ html
             //input(type="button", name="test", value="Filter", onclick="filterSingleValue();")
             .container-fluid
                 .row#vizMain
-                //.row#vizFilters
+                .row#vizFilters
 
     script(type='text/javascript').
         var viz, viz2, workbook;
