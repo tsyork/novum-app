@@ -135,7 +135,14 @@ function getMarks(e){
 // Here you can route for specific worksheets based on the object defined at the beginning
     if ( worksheets_to_listen_on[ws_name]) {
         console.log('Marks selection being routed from ' + ws_name);
-        e.getMarksAsync().then( handleMarksSelectionCompany );
+        if (ws_name == 'Co Score Details WS') {
+            console.log(ws_name);
+            e.getMarksAsync().then(handleMarksSelectionCompany);
+        }
+        if (ws_name == 'Top Investor Details WS') {
+            console.log(ws_name);
+            e.getMarksAsync().then(handleMarksSelectionInvestor);
+        }
     }
 }
 
@@ -190,6 +197,64 @@ function handleMarksSelectionCompany(m) {
     if (values.length === 1) {
 
         viz.getWorkbook().changeParameterValueAsync('Logo URL Parameter', values[0]).then(
+            function () {
+                console.log('Parameter set');
+            }
+        );
+    }
+}
+
+function handleMarksSelectionInvestor(m) {
+
+    console.log("[Event] Marks selection, " + m.length + " marks");
+    console.log(m);
+
+// Cleared selection detection
+    if (m.length == 0) {
+//$("#running_action_history").fadeOut();
+// Reset to 'All' if no selection
+
+        viz.getWorkbook().changeParameterValueAsync('Investor Logo URL Parameter', 'All').then(
+            function () {
+                console.log('Parameter set back to All');
+            }
+        );
+        return;
+    }
+
+// MarksSelection object is a collection of Marks class with numeric index
+// Marks contain Pairs, accessed by getPairs(), which is also collection
+// Easiest way to get the Values for a given field is to add the following method to the MarksSelection object
+// Pass the text value of the Field Name as fName and will return array of all of those values from the selected mark
+    m.getValuesForGivenField = function (fName) {
+        var valuesArray = new Array();
+
+// Run through each Mark in the Marks Collection
+        for(i=0;i<this.length;i++)
+        {
+            pairs = this[i].getPairs();
+            for (j = 0; j < pairs.length;
+                 j++
+            )
+            {
+                if (pairs[j].fieldName == fName) {
+                    valuesArray.push(pairs[j].formattedValue);
+// Alternatively you could get the value not formattedValue
+// valuesArray.push( pairs[j].value );
+                }
+            }
+        }
+        return valuesArray;
+    }
+
+    values = m.getValuesForGivenField('Investor Logo URL'); // Replace with the name of the field you want
+    console.log('Investor Logo URL value:');
+    console.log(values);
+
+// Then do your thing with that array of Values
+    if (values.length === 1) {
+
+        viz.getWorkbook().changeParameterValueAsync('Investor Logo URL Parameter', values[0]).then(
             function () {
                 console.log('Parameter set');
             }
