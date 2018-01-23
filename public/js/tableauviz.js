@@ -135,9 +135,7 @@ function getMarks(e){
 // Here you can route for specific worksheets based on the object defined at the beginning
     if ( worksheets_to_listen_on[ws_name]) {
         console.log('Marks selection being routed from ' + ws_name);
-        if (ws_name == 'Co Score Details WS') {
-            e.getMarksAsync().then( handleMarksSelectionCompany );
-        }
+        e.getMarksAsync().then( handleMarksSelectionCompany );
     }
 }
 
