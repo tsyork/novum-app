@@ -1,32 +1,32 @@
-var worksheets_to_listen_on = {'Co Score Details WS' : true, 'Sheet 2' : true};
+var worksheets_to_listen_on = {'Co Score Details WS' : true, 'Top Investor Details WS' : true};
 
 window.onload = function () {
     console.log('#{ticket}');
 
     var options = {
         width: 1920,
-        height: 1200,
+        height: 768,
         hideToolbar: false,
         hideTabs: true,
         onFirstInteractive: function () {
             workbook = viz.getWorkbook();
             activeSheet = workbook.getActiveSheet();
             queryDashboard(workbook);
-            viz2 = new tableauSoftware.Viz(vizDivFilters, vizURLFilters, optionsFilters);
+            // viz2 = new tableauSoftware.Viz(vizDivFilters, vizURLFilters, optionsFilters);
         }
     };
-    // var optionsFilters = {
-    //     width: 1920,
-    //     height: 1200,
-    //     hideTabs: true,
-    //     hideToolbar: true,
-    //     onFirstInteractive: function () {
-    //         workbookFilters = viz2.getWorkbook();
-    //         activeSheetFilters = workbookFilters.getActiveSheet();
-    //         queryDashboard(workbookFilters);
-    //         queryFilters(workbookFilters);
-    //     }
-    // };
+    var optionsFilters = {
+        width: 1920,
+        height: 1200,
+        hideTabs: true,
+        hideToolbar: true,
+        onFirstInteractive: function () {
+            workbookFilters = viz2.getWorkbook();
+            activeSheetFilters = workbookFilters.getActiveSheet();
+            queryDashboard(workbookFilters);
+            queryFilters(workbookFilters);
+        }
+    };
 
     viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
 
@@ -135,11 +135,13 @@ function getMarks(e){
 // Here you can route for specific worksheets based on the object defined at the beginning
     if ( worksheets_to_listen_on[ws_name]) {
         console.log('Marks selection being routed from ' + ws_name);
-        e.getMarksAsync().then( handleMarksSelection );
+        if (ws_name == 'Co Score Details WS') {
+            e.getMarksAsync().then( handleMarksSelectionCompany );
+        }
     }
 }
 
-function handleMarksSelection(m) {
+function handleMarksSelectionCompany(m) {
 
     console.log("[Event] Marks selection, " + m.length + " marks");
     console.log(m);
